@@ -43,7 +43,7 @@ e2e-serenity-parabank/
 
 ```bash
 # Clonar y entrar al proyecto
-git clone <url-repositorio>
+git clone git@github.com:andresgranizo/e2eparaBankSofka.git
 cd e2e-serenity-parabank
 
 # Ejecutar todos los tests
