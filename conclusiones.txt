@@ -1,0 +1,45 @@
+
+                         CONCLUSIONES Y HALLAZGOS
+                    ParaBank E2E Test Automation
+
+SOBRE LA APLICACION
+-------------------
+ParaBank es una aplicacion demo de Parasoft que simula un portal bancario.
+Me parecio bastante estable para las pruebas, los elementos del DOM tienen
+IDs consistentes lo cual facilito mucho la automatizacion.
+
+DECISION DE ARQUITECTURA
+------------------------
+Opte por usar el patron Screenplay en lugar de Page Object Model tradicional
+porque ofrece mejor legibilidad y separacion de responsabilidades. Las Tasks
+representan las acciones del usuario y las Questions las verificaciones,
+lo cual hace que el codigo sea mas expresivo.
+
+La estructura quedo asi:
+- Tasks: Login, Register, TransferFunds, MakeWithdrawal, etc.
+- Questions: TheLogin, TheRegistration, TheTransfer, etc.
+- UserInterfaces: Targets para cada pagina
+
+PROBLEMAS QUE ENCONTRE
+----------------------
+1. Sincronizacion: Algunos elementos tardaban en cargar, tuve que agregar
+   WaitUntil en varias partes para que no fallaran los tests.
+
+2. Usuarios duplicados: Al principio me fallaban los tests de registro
+   porque el username ya existia. Lo solucione generando usernames unicos
+   con timestamps.
+
+3. Transferencias: Para probar transferencias necesitaba dos cuentas,
+   asi que agregue un paso previo que crea una cuenta nueva.
+
+QUE MEJORARIA
+-------------
+- Agregar mas escenarios negativos (validaciones de campos, limites, etc)
+- Implementar ejecucion en paralelo para reducir el tiempo
+- Agregar pruebas de accesibilidad
+
+TIEMPO INVERTIDO
+----------------
+Aproximadamente 6-8 horas entre investigacion, desarrollo y pruebas.
+
+Andres Granizo

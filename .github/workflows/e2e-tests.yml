@@ -1,0 +1,40 @@
+name: E2E Tests - Serenity BDD
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+
+    - name: Configurar Java 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Instalar Chrome
+      uses: browser-actions/setup-chrome@v1
+
+    - name: Dar permisos a Gradle
+      run: chmod +x gradlew
+
+    - name: Ejecutar tests (headless)
+      run: ./gradlew clean test aggregate -Dheadless.mode=true
+
+    - name: Subir reportes Serenity
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: serenity-reports
+        path: target/site/serenity/
+        retention-days: 30
